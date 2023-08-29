@@ -13,7 +13,7 @@ Output - GPT Response
 import openai
 
 # OpenAI API key
-openai.api_key = "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"
+openai.api_key = "******"
 
 """
 GPT Engine Values
