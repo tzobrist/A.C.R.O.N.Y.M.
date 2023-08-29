@@ -11,10 +11,6 @@ Output - GPT Response
 """
 
 import openai
-
-# OpenAI API key
-openai.api_key = "******"
-
 """
 GPT Engine Values
 
@@ -30,11 +26,12 @@ davinci-codex: A specific engine designed for code-related tasks and generation.
 """
 
 # TODO: Connect gpt program to dashboard
-def generate_response(prompt):
+def generate_response(key, prompt, engine = "davinci-codex", tokens = 150):
+    openai.api_key = str(key)
     response = openai.Completion.create(
-        engine="text-davinci-003",  # GPT Model
+        engine=engine,  # GPT Model
         prompt=prompt,  # Text prompt
-        max_tokens=150  # Prompt size in tokens
+        max_tokens=tokens  # Prompt size in tokens
     )
     return response.choices[0].text.strip()
 

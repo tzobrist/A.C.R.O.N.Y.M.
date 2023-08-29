@@ -14,6 +14,7 @@ Output - Audit of input code/file
 import dash
 from dash import html, dcc
 from dash.dependencies import Input, Output, State
+from gpt import generate_response
 
 app = dash.Dash(__name__)
 
@@ -25,13 +26,16 @@ app.layout = html.Div([
             dcc.Dropdown(
                 id="gpt-model",
                 options=[
-                    {"label": "Option 1", "value": "option1"},
-                    {"label": "Option 2", "value": "option2"},
-                    {"label": "Option 3", "value": "option3"},
+                    {"label": "davinci", "value": "davinci"},
+                    {"label": "curie", "value": "curie"},
+                    {"label": "babbage", "value": "babbage"},
+                    {"label": "text-davinci-003", "value": "text-davinci-003"},
+                    {"label": "davinci-codex", "value": "davinci-codex"},
                 ],
                 placeholder="GPT Model"
             ),
             dcc.Input(id="prompt-size", type="number", placeholder="Prompt size"),
+            dcc.Textarea(id="input-text", placeholder="Data to scan", value=""),
             html.Button("SCAN", id="scan-button", n_clicks=0),
             dcc.Textarea(id="output-text", value="", readOnly=True)
         ], className="input-container"),
@@ -54,12 +58,13 @@ app.layout = html.Div([
     Output("output-text", "value"),
     Input("scan-button", "n_clicks"),
     State("api-key", "value"),
+    State("input-text", "value"),
     State("gpt-model", "value"),
     State("prompt-size", "value")
 )
-def update_output_text(n_clicks, text1, text2, text3):
+def scan(n_clicks, api_key, prompt, engine, tokens):
     if n_clicks > 0:
-        result = f"Text 1: {text1}\nText 2: {text2}\nText 3: {text3}"
+        result = generate_response(api_key, prompt, engine, tokens)
         return result
     return ""
 
