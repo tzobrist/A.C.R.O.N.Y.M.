@@ -19,10 +19,16 @@ from gpt import generate_response
 app = dash.Dash(__name__)
 
 app.layout = html.Div([
+    html.H1("Verifeye", className="header"),
+
     html.Div([
-        html.H1("Verifeye", className="header"),
         html.Div([
-            dcc.Input(id="api-key", type="text", placeholder="API Key"),
+            html.Label("API Key"),
+            dcc.Input(id="api-key", type="text", placeholder="API Key")
+        ], className="field"),
+
+        html.Div([
+            html.Label("GPT Model"),
             dcc.Dropdown(
                 id="gpt-model",
                 options=[
@@ -34,12 +40,25 @@ app.layout = html.Div([
                 ],
                 placeholder="GPT Model"
             ),
+        ], className="field"),
+
+        html.Div([
+            html.Label("Prompt Size (tokens):"),
             dcc.Input(id="prompt-size", type="number", placeholder="Prompt size"),
+        ], className="field"),
+
+        html.Div([
+            html.Label("Input:"),
             dcc.Textarea(id="input-text", placeholder="Data to scan", value=""),
-            html.Button("SCAN", id="scan-button", n_clicks=0),
-            dcc.Textarea(id="output-text", value="", readOnly=True)
-        ], className="input-container"),
-    ], className="main-container"),
+        ], className="field"),
+
+        html.Button("SCAN", id="scan-button", n_clicks=0),
+    ], className="input-container"),
+
+    html.Div([
+        html.Label("Output"),
+        dcc.Textarea(id="output-text", value="", readOnly=True)
+    ], className="output-container"),
 
     html.Div([
         dcc.Upload(
@@ -50,9 +69,8 @@ app.layout = html.Div([
             ]),
             multiple=True
         ),
-    ], className="file-upload-container"),
+    ], className="file-upload-container")
 ])
-
 
 @app.callback(
     Output("output-text", "value"),
@@ -67,7 +85,6 @@ def scan(n_clicks, api_key, prompt, engine, tokens):
         result = generate_response(api_key, prompt, engine, tokens)
         return result
     return ""
-
 
 if __name__ == "__main__":
     app.run_server(debug=True)
