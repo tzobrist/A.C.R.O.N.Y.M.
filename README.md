@@ -11,6 +11,9 @@ ACRONYM stands for <b><i>A</i></b>utonomous <b><i>C</i></b>ontext-aware <b><i>R<
 
 #### Usage:
 I feel like the usage is pretty straight forward. Each field has tooltips referencing what they are responsible for and can be filled out with the user's desired setup.
+
+![image](https://github.com/tzobrist/A.C.R.O.N.Y.M./assets/77289395/df410628-763d-4941-9378-34df1ae6afc3)
+
 - API Key: User's GPT API Key to access GPT models
 - GPT Model: Model to use for query
 - Prompt Size: Max number of tokens to use within query (1300 is usually enough)
@@ -43,4 +46,4 @@ ACRONYM Output:
 1. Refine prompt to allow for more obscure word usage and reduce chance of invalid titles
 2. Refine synonym supplementation
 3. Reformat output so titles are correctly capitalized
-4. UI beautification
+4. UI beautification (I didn't spend a lot of time on it, more so the backend)
