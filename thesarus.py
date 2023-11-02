@@ -37,7 +37,7 @@ def find_keyword_synonyms(abstract):
     for synonyms_list in keyword_synonyms.values():
         if synonyms_list:
             for word in synonyms_list:
-                synonym_str += word + " " if "_" not in word else ""
+                synonym_str += word + ", " if "_" not in word and not len(word) < 6 else ""
 
     return synonym_str
 
